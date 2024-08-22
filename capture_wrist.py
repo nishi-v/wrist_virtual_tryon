@@ -62,6 +62,8 @@ else:
         img = cv2.imdecode(np.frombuffer(camera_image.getbuffer(), np.uint8), cv2.IMREAD_COLOR)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+        my_img = img.copy()
+
         # Print the response for debugging
         print("API Response:", results)
 
@@ -168,3 +170,16 @@ else:
                         result_img[y, x] = object_rotated_cv[i, j][:3]  # Use RGB channels
 
         st.image(result_img, caption='Wrist with Bracelet Overlay', use_column_width=True)
+
+        # Bracelet on wrist without polygon and coordinates
+        my_result_img = my_img.copy()
+        for i in range(new_height):
+            for j in range(new_width):
+                if object_rotated_cv[i, j][3] > 0:  # Check alpha channel
+                    x = top_left_x + j
+                    y = top_left_y + i
+                    if 0 <= x < img.shape[1] and 0 <= y < img.shape[0]:
+                        my_result_img[y, x] = object_rotated_cv[i, j][:3]  # Use RGB channels
+
+        st.image(my_result_img, caption='Wrist with Bracelet Overlay without coordinates', use_column_width=True)
+
