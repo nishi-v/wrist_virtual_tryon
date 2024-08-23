@@ -47,7 +47,7 @@ else:
 
         import requests
 
-        url = "https://fsvirtualnode.clouddeploy.in/coordinates"
+        url = "https://wristmodel.iaugment.in/coordinates"
 
         payload = {}
         files=[
@@ -55,7 +55,7 @@ else:
         ]
         headers = {}
 
-        response = requests.request("POST", url, headers=headers, data=payload, files=files)
+        response = requests.request("POST", url, headers = headers, data = payload, files = files, verify = False)
 
 
         results = response.text
