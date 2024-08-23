@@ -45,17 +45,19 @@ else:
         with open("temp_image_cam.jpg", "wb") as f:
             f.write(camera_image.getbuffer())
 
-        # Prepare the file for the request
-        files = [
-            ('image', ('temp_image_cam.jpg', open('temp_image_cam.jpg', 'rb'), 'image/jpeg'))
-        ]
+        import requests
 
         url = "https://fsvirtualnode.clouddeploy.in/coordinates"
+
         payload = {}
+        files=[
+            ('image',('temp_image_cam.jpg',open('temp_image_cam.jpg','rb'),'image/jpeg'))
+        ]
         headers = {}
 
-        # Make the request
         response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+
         results = response.text
 
         # Load and display the uploaded image
@@ -140,8 +142,13 @@ else:
 
         # Rotate the resized bracelet to align with wrist angle
         st.write('Wrist rotation angle:', rotation_angle)
-        angle = 90 - rotation_angle
-        st.write('Rotaion matrix angle:', angle)
+        if 0 <= rotation_angle < 60:
+            angle = 90 - rotation_angle
+        elif 60 <= rotation_angle < 120:
+            angle = 180 - rotation_angle
+        elif 120 <= rotation_angle <= 180:
+            angle = 270 - rotation_angle
+        st.write('Rotation matrix angle:', angle)
         rotation_matrix = cv2.getRotationMatrix2D((new_width // 2, new_height // 2), angle, 1.0)
         object_rotated = cv2.warpAffine(object_resized, rotation_matrix, (new_width, new_height), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0))
 
@@ -182,4 +189,3 @@ else:
                         my_result_img[y, x] = object_rotated_cv[i, j][:3]  # Use RGB channels
 
         st.image(my_result_img, caption='Wrist with Bracelet Overlay without coordinates', use_column_width=True)
-
