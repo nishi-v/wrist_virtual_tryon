@@ -37,7 +37,6 @@ To set up and run this app locally, follow these steps:
 
    streamlit run wrist_capture.py
 
-   Replace `app.py` with the name of your Streamlit script if it differs.
 
 Usage
 
