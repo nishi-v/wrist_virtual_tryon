@@ -17,7 +17,9 @@ bracelets = {
     "Bracelet 1": "bracelets/BFCL013D2C.png",
     "Bracelet 2": "bracelets/BFSV014D2C.png",
     "Bracelet 3": "bracelets/BFSV015D2C.png",
-    "Bracelet 4": "bracelets/HalfProduct.png"
+    "Bracelet 4": "bracelets/HalfProduct.png",
+    "Watch 1": "bracelets/watch1.png",
+    "watch 2": "bracelets/WFA015G1F.png"
 }
 
 if not st.session_state.bracelet_selected:
@@ -59,7 +61,7 @@ else:
         response = requests.request("POST", url, headers = headers, data = payload, files = files, verify = False)
         end = time.time() - start
         st.write("Time taken for API call", {end})
-        
+
         results = response.text
 
         # Load and display the uploaded image
