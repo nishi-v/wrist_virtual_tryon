@@ -5,6 +5,7 @@ import requests
 from PIL import Image
 import json
 from typing import List
+import time
 
 st.title('Wrist Virtual Try On')
 
@@ -45,7 +46,7 @@ else:
         with open("temp_image_cam.jpg", "wb") as f:
             f.write(camera_image.getbuffer())
 
-        import requests
+        start = time.time()
 
         url = "https://wristmodel.iaugment.in/coordinates"
 
@@ -56,8 +57,9 @@ else:
         headers = {}
 
         response = requests.request("POST", url, headers = headers, data = payload, files = files, verify = False)
-
-
+        end = time.time() - start
+        st.write("Time taken for API call", {end})
+        
         results = response.text
 
         # Load and display the uploaded image
@@ -143,11 +145,11 @@ else:
         # Rotate the resized bracelet to align with wrist angle
         st.write('Wrist rotation angle:', rotation_angle)
         if 0 <= rotation_angle < 60:
-            angle = 90 - rotation_angle
-        elif 60 <= rotation_angle < 120:
-            angle = 180 - rotation_angle
-        elif 120 <= rotation_angle <= 180:
             angle = 270 - rotation_angle
+        elif 60 <= rotation_angle < 120:
+            angle = 360 - rotation_angle
+        elif 120 <= rotation_angle <= 180:
+            angle = 90 - rotation_angle
         st.write('Rotation matrix angle:', angle)
         rotation_matrix = cv2.getRotationMatrix2D((new_width // 2, new_height // 2), angle, 1.0)
         object_rotated = cv2.warpAffine(object_resized, rotation_matrix, (new_width, new_height), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0))
