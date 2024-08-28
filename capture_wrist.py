@@ -6,6 +6,14 @@ from PIL import Image
 import json
 from typing import List
 import time
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API URL from environment variables
+API_URL = os.getenv("API_URL")
 
 st.title('Wrist Virtual Try On')
 
@@ -52,15 +60,13 @@ else:
 
         start = time.time()
 
-        url = "https://wristmodel.iaugment.in/coordinates"
-
         payload = {}
         files=[
             ('image',('temp_image_cam.jpg',open('temp_image_cam.jpg','rb'),'image/jpeg'))
         ]
         headers = {}
 
-        response = requests.request("POST", url, headers = headers, data = payload, files = files, verify = False)
+        response = requests.request("POST", API_URL, headers = headers, data = payload, files = files, verify = False)
         end = time.time() - start
         st.write("Time taken for API call", {end})
 
