@@ -146,11 +146,9 @@ else:
 
         # Rotate the resized bracelet to align with wrist angle
         st.write('Wrist rotation angle:', rotation_angle)
-        if 0 <= rotation_angle < 60:
+        if 0 <= rotation_angle <= 90:
             angle = 270 - rotation_angle
-        elif 60 <= rotation_angle < 120:
-            angle = 360 - rotation_angle
-        elif 120 <= rotation_angle <= 180:
+        elif 90 < rotation_angle <= 180:
             angle = 90 - rotation_angle
         st.write('Rotation matrix angle:', angle)
         rotation_matrix = cv2.getRotationMatrix2D((new_width // 2, new_height // 2), angle, 1.0)
