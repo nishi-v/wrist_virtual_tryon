@@ -19,7 +19,9 @@ bracelets = {
     "Bracelet 3": "bracelets/BFSV015D2C.png",
     "Bracelet 4": "bracelets/HalfProduct.png",
     "Watch 1": "bracelets/watch1.png",
-    "watch 2": "bracelets/WFA015G1F.png"
+    "watch 2": "bracelets/WFA015G1F.png",
+    "watch 3": "bracelets/WMA005S1F.png",
+    "watch 4": "bracelets/WMA006S1F.png"
 }
 
 if not st.session_state.bracelet_selected:
