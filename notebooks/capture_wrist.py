@@ -8,12 +8,16 @@ from typing import List
 import time
 from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+dir = Path(os.getcwd())
 
 # Load environment variables from .env file
-load_dotenv()
+ENV_PATH = dir/'.env'
+load_dotenv(ENV_PATH)
 
 # Get API URL from environment variables
-API_URL = os.getenv("API_URL")
+API_URL = os.environ["API_URL"]
 
 st.title('Wrist Virtual Try On')
 
@@ -55,14 +59,15 @@ else:
     camera_image = st.camera_input("Capture an image of the wrist")
 
     if camera_image is not None:
-        with open("temp_image_cam.jpg", "wb") as f:
+        with open(dir/"temp_image_cam.jpg", "wb") as f:
             f.write(camera_image.getbuffer())
 
         start = time.time()
 
         payload = {}
+        img_path = str(dir/'temp_image_cam.jpg')
         files=[
-            ('image',('temp_image_cam.jpg',open('temp_image_cam.jpg','rb'),'image/jpeg'))
+            ('image',(img_path,open(img_path,'rb'),'image/jpeg'))
         ]
         headers = {}
 
@@ -73,7 +78,7 @@ else:
         results = response.text
 
         # Load and display the uploaded image
-        img = cv2.imdecode(np.frombuffer(camera_image.getbuffer(), np.uint8), cv2.IMREAD_COLOR)
+        img = cv2.imread(img_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         my_img = img.copy()

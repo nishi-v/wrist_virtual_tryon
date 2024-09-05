@@ -1,12 +1,11 @@
 /.venv
 /.vscode
 
-sample.py
-wrist.py
-
 temp_image.jpg
-upload_img.py
-wrist.ipynb
 sample_imgs
 temp_image_cam.jpg
 .env
+notebooks/sample.py
+notebooks/upload_img.py
+notebooks/wrist.ipynb
+notebooks/wrist.py
