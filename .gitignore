@@ -5,7 +5,5 @@ temp_image.jpg
 sample_imgs
 temp_image_cam.jpg
 .env
-notebooks/sample.py
-notebooks/upload_img.py
-notebooks/wrist.ipynb
-notebooks/wrist.py
+notebooks/
+py_scripts/
