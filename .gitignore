@@ -2,7 +2,7 @@
 /.vscode
 
 temp_image.jpg
-sample_imgs
+sample_imgs/
 temp_image_cam.jpg
 .env
 notebooks/

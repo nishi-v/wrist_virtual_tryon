@@ -89,10 +89,18 @@ else:
         # Parse API response
         results = response.text
         try:
-            data = json.loads(results)
-            wrist_data = data["results"]["wrist"]
+            data = json.loads(results)  # Attempt to parse JSON
+            wrist_data = data["results"]["wrist"]  # Assuming wrist data is in 'results'
         except json.JSONDecodeError:
+            st.write("Error decoding JSON. Here's the response text:")
+            st.write(results)  # Display raw response text
             st.error("Failed to decode JSON from the API response.")
+            st.stop()
+        except KeyError:
+            st.write("Error: Expected data format is not present in the response.")
+            st.write("Here's the response text:")
+            st.write(results)  # Display raw response text
+            st.error("Failed to find expected 'wrist' data in the API response.")
             st.stop()
 
         # Load and display the wrist image
