@@ -19,6 +19,7 @@ load_dotenv(ENV_PATH)
 
 # Get API URL from environment variables
 API_URL = os.environ["API_URL"]
+BEARER_TOKEN = os.environ["BEARER_TOKEN"]
 
 st.title('Wrist Virtual Try-On')
 
@@ -80,7 +81,9 @@ else:
         # API call to analyze the wrist image
         payload = {}
         files = [('image', (img_path, open(img_path, 'rb'), 'image/jpeg'))]
-        headers = {}
+        headers = {
+            'Authorization': f"Bearer {BEARER_TOKEN}"
+        }
 
         response = requests.request("POST", API_URL, headers=headers, data=payload, files=files, verify=False)
         end = time.time() - start
