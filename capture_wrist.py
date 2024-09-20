@@ -109,6 +109,7 @@ else:
         # Load and display the wrist image
         img = cv2.imread(img_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        my_img = img.copy()
 
         # Extract and process the wrist coordinates
         left_coords = wrist_data["left"]
@@ -182,7 +183,7 @@ else:
         st.image(result_img, caption='Wrist with Bracelet Overlay', use_column_width=True)
 
         # Bracelet on wrist without polygon and coordinates
-        my_result_img = img.copy()
+        my_result_img = my_img.copy()
         for i in range(new_height):
             for j in range(new_width):
                 if object_rotated_cv[i, j][3] > 0:  # Check alpha channel
